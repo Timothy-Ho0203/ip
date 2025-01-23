@@ -71,7 +71,7 @@ public class App {
 
     private void addToList(String task) {
         Task curr = null;
-        String type = task.split(" ")[0];
+        String type = task.split(" ")[0].toLowerCase();
         switch(type) {
             case "todo": {
                 String name = task.substring(5);
@@ -121,12 +121,12 @@ public class App {
     private void markAsDone(int i) {
         Task curr = list.get(i-1);
         curr.markAsDone();
-        System.out.print("Great! I'll mark this as done then.\n" + "    " + curr.toString() + "\n" + LINE);
+        System.out.print("    Great! I'll mark this as done then.\n" + "    " + curr.toString() + "\n" + LINE);
     }
 
     private void markAsUndone(int i) {
         Task curr = list.get(i-1);
         curr.markAsUndone();
-        System.out.print("Okay, I'll mark this as uncompleted.\n" + "    " + curr.toString() + "\n" + LINE);
+        System.out.print("    Okay, I'll mark this as uncompleted.\n" + "    " + curr.toString() + "\n" + LINE);
     }
 }
