@@ -3,8 +3,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class App {
-    String LINE = "    -------------------------------\n";
-    List<String> list;
+    public static final String LINE = "    -------------------------------\n";
+    private List<Task> list;
     public App() {
         list = new ArrayList<>();
     }
@@ -14,14 +14,19 @@ public class App {
         Scanner input = new Scanner(System.in);
         boolean run = true;
         while (run) {
-            String instr = input.nextLine();
-            if (instr.equalsIgnoreCase("bye")) {
+            String in = input.nextLine();
+            String[] instr = in.split(" ");
+            if (instr[0].equalsIgnoreCase("bye")) {
                 run = false;
                 exit();
-            } else if (instr.equalsIgnoreCase("list")) {
+            } else if (instr[0].equalsIgnoreCase("list")) {
                 displayList();
+            } else if (instr[0].equalsIgnoreCase("mark")) {
+                markAsDone(Integer.parseInt(instr[1]));
+            } else if (instr[0].equalsIgnoreCase("unmark")) {
+                markAsUndone(Integer.parseInt(instr[1]));
             } else {
-                addToList(instr);
+                addToList(instr[0]);
             }
         }
     }
@@ -45,7 +50,7 @@ public class App {
     }
 
     private void addToList(String task) {
-        list.add(task);
+        list.add(new Task(task));
         String base = """
             Added: %s
         """;
@@ -55,14 +60,26 @@ public class App {
 
     private void displayList() {
         int count = 1;
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("Here are the tasks you have: \n");
         String base = "%d. ";
-        for (String task : list) {
+        for (Task task : list) {
             String result = String.format(base, count);
-            sb.append("    " + result + task + "\n");
+            sb.append("    " + result + task.toString() + "\n");
             count += 1;
         }
         String res = sb.toString();
         System.out.print(res + LINE);
+    }
+
+    private void markAsDone(int i) {
+        Task curr = list.get(i-1);
+        curr.markAsDone();
+        System.out.print("Great! I'll mark this as done then.\n" + "    " + curr.toString() + "\n" + LINE);
+    }
+
+    private void markAsUndone(int i) {
+        Task curr = list.get(i-1);
+        curr.markAsUndone();
+        System.out.print("Okay, I'll mark this as uncompleted.\n" + "    " + curr.toString() + "\n" + LINE);
     }
 }
