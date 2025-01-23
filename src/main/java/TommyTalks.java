@@ -1,4 +1,3 @@
-
 public class TommyTalks {
     public static void main(String[] args) {
         String logo = """
