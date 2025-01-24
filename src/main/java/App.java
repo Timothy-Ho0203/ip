@@ -36,18 +36,6 @@ public class App {
                     addToList(in);
 
             }
-//            if (instr[0].equalsIgnoreCase("bye")) {
-//                run = false;
-//                exit();
-//            } else if (instr[0].equalsIgnoreCase("list")) {
-//                displayList();
-//            } else if (instr[0].equalsIgnoreCase("mark")) {
-//                markAsDone(Integer.parseInt(instr[1]));
-//            } else if (instr[0].equalsIgnoreCase("unmark")) {
-//                markAsUndone(Integer.parseInt(instr[1]));
-//            } else {
-//                addToList(instr[0].toLowerCase());
-//            }
         }
     }
     private void greet() {
@@ -74,25 +62,55 @@ public class App {
         String type = task.split(" ")[0].toLowerCase();
         switch(type) {
             case "todo": {
-                String name = task.substring(5);
-                curr = new ToDo(name);
+                try {
+                    String name = task.substring(5);
+                    curr = new ToDo(name);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.print("    Please put in a task at least\n" + LINE);
+                    return;
+                }
                 break;
             }
             case "deadline": {
-                String[] arr = task.split("/");
-                String name = arr[0].substring(9);
-                String date = arr[1].substring(3);
-                curr = new Deadline(name, date);
+                try {
+                    String[] arr = task.split("/");
+                    String name = arr[0].substring(9);
+                    String date = arr[1].substring(3);
+                    curr = new Deadline(name, date);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.print("    Please put in a task at least\n" + LINE);
+                    return;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.print("    Please put ur task in the right format\n" + LINE);
+                    return;
+                }
                 break;
             }
             case "event": {
-                String[] arr = task.split("/");
-                String name = arr[0].substring(6);
-                String start = arr[1].substring(5);
-                String end = arr[2].substring(3);
-                curr = new Event(name, start, end);
+                try {
+                    String[] arr = task.split("/");
+                    String name = arr[0].substring(6);
+                    String start = arr[1].substring(5);
+                    String end = arr[2].substring(3);
+                    curr = new Event(name, start, end);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.print("    Please put in a task at least\n" + LINE);
+                    return;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.print("    Please put ur task in the right format\n" + LINE);
+                    return;
+                }
                 break;
             }
+            default:
+                String err = """
+                    o.O What's that? Please specify
+                    the type of event(todo, deadline,
+                    event etc) in the appropriate
+                    formats. I would appreciate it!
+                """;
+                System.out.print(err + LINE);
+                return;
         }
         list.add(curr);
         String base = """
