@@ -32,6 +32,9 @@ public class App {
                 case "unmark":
                     markAsUndone(Integer.parseInt(instr[1]));
                     break;
+                case "delete":
+                    delete(Integer.parseInt(instr[1]));
+                    break;
                 default:
                     addToList(in);
 
@@ -146,5 +149,18 @@ public class App {
         Task curr = list.get(i-1);
         curr.markAsUndone();
         System.out.print("    Okay, I'll mark this as uncompleted.\n" + "    " + curr.toString() + "\n" + LINE);
+    }
+
+    private void delete(int i) {
+        Task curr = list.get(i-1);
+        list.remove(i-1);
+        String base = """
+            Removed:
+            %s
+            Now, you have %d tasks in the list.
+        """;
+        int size = list.size();
+        String result = String.format(base, curr, size);
+        System.out.print(result + LINE);
     }
 }
