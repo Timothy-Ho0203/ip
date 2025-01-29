@@ -1,7 +1,5 @@
 package Tasks;
 
-import Tasks.Task;
-
 public class Event extends Task {
     protected String start;
     protected String end;
@@ -10,6 +8,12 @@ public class Event extends Task {
         this.start = start;
         this.end = end;
     }
+
+    @Override
+    public String getKeyInfo() {
+        return "event," + super.getKeyInfo() + "," + start + "," + end;
+    }
+
 
     @Override
     public String toString() {
