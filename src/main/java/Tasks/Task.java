@@ -2,23 +2,27 @@ package Tasks;
 
 public class Task {
     protected String name;
-    protected boolean done;
+    protected boolean isDone;
 
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void markAsUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     private String getStatus() {
-        return (done ? "X" : " ");
+        return (isDone ? "X" : " ");
+    }
+
+    public String getKeyInfo() {
+        return name + "," + isDone;
     }
     @Override
     public String toString(){

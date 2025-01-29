@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class App {
     public static final String LINE = "    ------------------------------------\n";
-    private List<Task> list;
-    private boolean stupid;
+    private Storage data;
+    private boolean isStupid;
     public App() {
-        list = new ArrayList<>();
-        stupid = false;
+        isStupid = false;
+        data = new Storage("./ip/data/TommyTalks.txt");
     }
 
     public void run() {
@@ -21,7 +21,7 @@ public class App {
         int count = 0;
         while (run) {
             if (count > 2) {
-                stupid = true;
+                isStupid = true;
             }
             String in = input.nextLine();
             if (in.equalsIgnoreCase("bye")) {
@@ -93,18 +93,19 @@ public class App {
     }
     private void greet() {
         String greetings = """
-            -------------------------------
+            ------------------------------------
             Hello! Welcome to TommyTalks
             What can i do for you?
-            -------------------------------
+            ------------------------------------
         """;
         System.out.print(greetings);
     }
 
     private void exit() {
+        data.save();
         String bye = """
             Bye, hope to see you again!
-            -------------------------------
+            ------------------------------------
         """
         ;
         System.out.println(bye);
@@ -160,7 +161,7 @@ public class App {
                 break;
             }
             default:
-                if (!stupid) {
+                if (!isStupid) {
                     String err = """
                             \to.O What's that? Please specify
                             \tthe type of event(todo, deadline,
@@ -175,59 +176,29 @@ public class App {
                     throw new InvalidFormatException(help);
                 }
         }
-        list.add(curr);
-        String base = """
-            Added:
-            %s
-            You have %d tasks in the list.
-        """;
-        int size = list.size();
-        String result = String.format(base, curr, size);
-        System.out.print(result + LINE);
+        data.saveToFile(curr);
     }
 
     private void displayList() {
-        int count = 1;
-        StringBuilder sb = new StringBuilder("    Here are the tasks you have: \n");
-        String base = "%d. ";
-        for (Task task : list) {
-            String result = String.format(base, count);
-            sb.append("    " + result + task.toString() + "\n");
-            count += 1;
-        }
-        String res = sb.toString();
-        System.out.print(res + LINE);
+        System.out.print(data.displayTasks() + LINE);
     }
 
     private void markAsDone(int i) {
-        Task curr = list.get(i-1);
-        curr.markAsDone();
-        System.out.print("    Great! I'll mark this as done then.\n" + "    " + curr + "\n" + LINE);
+        data.markAsDone(i);
     }
 
     private void markAsUndone(int i) {
-        Task curr = list.get(i-1);
-        curr.markAsUndone();
-        System.out.print("    Okay, I'll mark this as uncompleted.\n" + "    " + curr + "\n" + LINE);
+        data.markAsUndone(i);
     }
 
     private void delete(int i) {
-        Task curr = list.get(i-1);
-        list.remove(i-1);
-        String base = """
-            Removed:
-            %s
-            Now, you have %d tasks in the list.
-        """;
-        int size = list.size();
-        String result = String.format(base, curr, size);
-        System.out.print(result + LINE);
+        data.delete(i);
     }
 
     private void help() {
         String txt = """
                 \t------------------------------------
-                \tHere is the list of commands 
+                \tHere is the list of commands
                 \t------------------------------------
                 \tlist
                 \tView all tasks
@@ -245,8 +216,8 @@ public class App {
                 \tAdds ToDo Task <name> to list
                 \t------------------------------------
                 \tdeadline <name> /by <date>
-                \tAdds Deadline Task <name> due 
-                \ton <date> to list
+                \tAdds Deadline Task <name> due on
+                \t<date> to list
                 \t------------------------------------
                 \tevent <name> /from <start> /to <end>
                 \tAdds Event Task <name> starting from
