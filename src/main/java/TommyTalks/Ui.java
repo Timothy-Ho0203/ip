@@ -65,8 +65,7 @@ public class Ui {
         String bye = """
             Bye, hope to see you again!
             ------------------------------------
-        """
-                ;
+        """;
         System.out.println(bye);
     }
 
@@ -82,16 +81,16 @@ public class Ui {
     public void invalidCommand() {
         if (!isStupid) {
             String err = """
-                            \to.O What's that? Please specify
-                            \tthe type of event(todo, deadline,
-                            \tevent etc) in the appropriate
-                            \tformats. I would appreciate it!""";
+                    \to.O What's that? Please specify
+                    \tthe type of event(todo, deadline,
+                    \tevent etc) in the appropriate
+                    \tformats. I would appreciate it!""";
             throw new InvalidFormatException(err);
         } else {
             String help = """
-                            \tYou seem a lil lost, would you
-                            \tlike to view all possible
-                            \tcommands using help?""";
+                    \tYou seem a lil lost, would you
+                    \tlike to view all possible
+                    \tcommands using help?""";
             throw new InvalidFormatException(help);
         }
     }

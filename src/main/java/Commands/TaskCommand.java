@@ -7,14 +7,14 @@ import java.time.format.DateTimeParseException;
 
 import Exceptions.InvalidArgumentException;
 import Exceptions.InvalidFormatException;
+
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.ToDo;
+
 import TommyTalks.Storage;
 import TommyTalks.Ui;
-
-
 
 public class TaskCommand extends Command {
     protected String task;
@@ -22,6 +22,7 @@ public class TaskCommand extends Command {
     public TaskCommand(String task) {
         this.task = task;
     }
+
     @Override
     public void execute(Storage taskList, Ui ui) {
         Task curr = null;
@@ -38,7 +39,6 @@ public class TaskCommand extends Command {
                 throw new InvalidArgumentException("    Please put in a task at least");
             }
             break;
-
         case "deadline":
             try {
                 String[] arr = task.split("/");
@@ -47,6 +47,7 @@ public class TaskCommand extends Command {
                 if (name.isBlank() || date.isBlank()) {
                     throw new InvalidArgumentException("    Please don't leave any blanks");
                 }
+
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM yyyy");
                 LocalDate dueDate = LocalDate.parse(date.trim(), format);
                 curr = new Deadline(name.trim(), dueDate);
@@ -58,7 +59,6 @@ public class TaskCommand extends Command {
                 throw new InvalidFormatException("    Please put your date as DD MM YYYY");
             }
             break;
-
         case "event":
             try {
                 String[] arr = task.split("/");
@@ -68,6 +68,7 @@ public class TaskCommand extends Command {
                 if (name.isBlank() || start.isBlank() || end.isBlank()) {
                     throw new InvalidArgumentException("    Please don't leave any blanks");
                 }
+
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm");
                 LocalDateTime startDay = LocalDateTime.parse(start.trim(), format);
                 LocalDateTime endDay = LocalDateTime.parse(end.trim(), format);

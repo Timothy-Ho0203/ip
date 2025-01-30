@@ -2,6 +2,7 @@ package Commands;
 
 import TommyTalks.Storage;
 import TommyTalks.Ui;
+
 import Exceptions.InvalidArgumentException;
 
 public class HelperCommand extends Command {
@@ -10,6 +11,7 @@ public class HelperCommand extends Command {
     public HelperCommand(String inst) {
         this.inst = inst;
     }
+
     @Override
     public void execute(Storage taskList, Ui ui) {
         String[] keyword = inst.split(" ", 2);

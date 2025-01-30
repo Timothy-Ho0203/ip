@@ -5,24 +5,31 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.ToDo;
 
-import java.io.*;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
     public static final String LINE = "    ------------------------------------\n";
     private String filePath;
-    private List<Task> list;
+    private List<Task> tasks;
     public Storage(String filePath) {
         this.filePath = filePath;
         loadFromFile();
     }
 
     private void loadFromFile() {
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         File f = new File(filePath);
         if (!f.exists()) {
             try {
@@ -32,6 +39,7 @@ public class Storage {
                 System.out.println("Error creating file: " + e.getMessage());
             }
         }
+        // Populate tasks
         try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -64,11 +72,11 @@ public class Storage {
         if (data[2].equals("true")) {
             curr.markAsDone();
         }
-        list.add(curr);
+        tasks.add(curr);
     }
 
     public void saveToFile(Task task) {
-        list.add(task);
+        tasks.add(task);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.append(task.getKeyInfo());
             writer.newLine();
@@ -80,19 +88,22 @@ public class Storage {
             %s
             You have %d tasks in the list.
         """;
-        int size = list.size();
+        int size = tasks.size();
         String result = String.format(base, task, size);
         System.out.print(result + LINE);
     }
 
     public void save() {
+        // Reset the file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("");
         } catch (IOException e) {
             System.out.println("Error saving: " + e.getMessage());
         }
+        // Write the final tasks before closing
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            for (Task task : list) {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
                 writer.append(task.getKeyInfo());
                 writer.newLine();
             }
@@ -105,7 +116,8 @@ public class Storage {
         int count = 1;
         StringBuilder sb = new StringBuilder("    Here are the tasks you have: \n");
         String base = "%d. ";
-        for (Task task : list) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
             String result = String.format(base, count);
             sb.append("    " + result + task.toString() + "\n");
             count += 1;
@@ -114,26 +126,27 @@ public class Storage {
     }
 
     public void markAsDone(int i) {
-        Task curr = list.get(i-1);
+        Task curr = tasks.get(i-1);
         curr.markAsDone();
         System.out.print("    Great! I'll mark this as done then.\n" + "    " + curr + "\n" + LINE);
     }
 
     public void markAsUndone(int i) {
-        Task curr = list.get(i-1);
+        Task curr = tasks.get(i-1);
         curr.markAsUndone();
         System.out.print("    Okay, I'll mark this as uncompleted.\n" + "    " + curr + "\n" + LINE);
     }
 
     public void delete(int i) {
-        Task curr = list.get(i-1);
-        list.remove(i-1);
+        Task curr = tasks.get(i-1);
+        tasks.remove(i-1);
+
         String base = """
             Removed:
             %s
             Now, you have %d tasks in the list.
         """;
-        int size = list.size();
+        int size = tasks.size();
         String result = String.format(base, curr, size);
         System.out.print(result + LINE);
     }
