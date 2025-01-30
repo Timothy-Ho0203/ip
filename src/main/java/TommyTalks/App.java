@@ -37,7 +37,7 @@ public class App {
         }
     }
 
-    private Command parseInput(String inst) {
+    protected Command parseInput(String inst) {
         String[] keyword = inst.split(" ", 2);
         String type = keyword[0].toLowerCase();
         Command c = null;
