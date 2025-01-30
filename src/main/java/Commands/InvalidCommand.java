@@ -1,3 +1,8 @@
+package Commands;
+
+import TommyTalks.Storage;
+import TommyTalks.Ui;
+
 public class InvalidCommand extends Command {
     protected String inst;
 
