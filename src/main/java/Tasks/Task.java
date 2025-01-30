@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * Parent class to handle functionalities of tasks.
+ */
 public class Task {
     protected String name;
     protected boolean isDone;

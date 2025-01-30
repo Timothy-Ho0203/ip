@@ -4,12 +4,22 @@ import TommyTalks.Storage;
 import TommyTalks.Ui;
 import Exceptions.InvalidArgumentException;
 
+/**
+ * Commands that display information and help user interaction.
+ */
 public class HelperCommand extends Command {
     protected String inst;
 
     public HelperCommand(String inst) {
         this.inst = inst;
     }
+
+    /**
+     * Execute the command according to their functionalities.
+     * @param taskList Storage that holds all tasks currently.
+     * @param ui UI to manage printing of messages.
+     * @throws InvalidArgumentException If commands are not given appropriate arguments.
+     */
     @Override
     public void execute(Storage taskList, Ui ui) {
         String[] keyword = inst.split(" ", 2);

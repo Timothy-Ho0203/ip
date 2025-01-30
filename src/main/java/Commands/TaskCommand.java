@@ -14,14 +14,24 @@ import Tasks.ToDo;
 import TommyTalks.Storage;
 import TommyTalks.Ui;
 
-
-
+/**
+ * Commands that create tasks for the user
+ */
 public class TaskCommand extends Command {
     protected String task;
 
     public TaskCommand(String task) {
         this.task = task;
     }
+
+    /**
+     * Execute the command according to their functionalities.
+     * @param taskList Storage that holds all tasks currently.
+     * @param ui UI to manage printing of messages.
+     * @throws InvalidArgumentException If commands are not given appropriate arguments.
+     * @throws InvalidFormatException If date and time are not given in
+     * DD MM YYYY or 24-hour format.
+     */
     @Override
     public void execute(Storage taskList, Ui ui) {
         Task curr = null;

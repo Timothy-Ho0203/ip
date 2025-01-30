@@ -3,6 +3,10 @@ package Commands;
 import TommyTalks.Storage;
 import TommyTalks.Ui;
 
+/**
+ * Commands that deal with invalid user inputs that are neither
+ * helper commands or task creation commands.
+ */
 public class InvalidCommand extends Command {
     protected String inst;
 
