@@ -12,6 +12,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Saves and loads tasks from/to hard disk.
+ * Stores the tasks in an ArrayList.
+ */
 public class Storage {
     public static final String LINE = "    ------------------------------------\n";
     private String filePath;
@@ -21,6 +25,9 @@ public class Storage {
         loadFromFile();
     }
 
+    /**
+     * Reads tasks from hard disk and populate task list.
+     */
     private void loadFromFile() {
         this.list = new ArrayList<>();
         File f = new File(filePath);
@@ -42,6 +49,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Populates task list of Storage object.
+     * Serves as a helper function when Storage is initialized.
+     * @param line text read from file containing previous task descriptions.
+     */
     private void addToList(String line) {
         String[] data = line.split(",");
         Task curr = null;
@@ -67,6 +79,9 @@ public class Storage {
         list.add(curr);
     }
 
+    /**
+     * Adds task to task list and writes task description to file.
+     */
     public void saveToFile(Task task) {
         list.add(task);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
@@ -85,6 +100,9 @@ public class Storage {
         System.out.print(result + LINE);
     }
 
+    /**
+     * Saves the list of tasks in file to hard disk.
+     */
     public void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("");
@@ -101,6 +119,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Lists out all tasks currently available regardless of completion status.
+     */
     public void displayTasks() {
         int count = 1;
         StringBuilder sb = new StringBuilder("    Here are the tasks you have: \n");
@@ -113,18 +134,30 @@ public class Storage {
         System.out.print(sb + LINE);
     }
 
+    /**
+     * Marks the task specified at i relative to the task list as completed.
+     * @param i index of the task to be marked.
+     */
     public void markAsDone(int i) {
         Task curr = list.get(i-1);
         curr.markAsDone();
         System.out.print("    Great! I'll mark this as done then.\n" + "    " + curr + "\n" + LINE);
     }
 
+    /**
+     * Marks the task specified at i relative to the task list as uncompleted.
+     * @param i index of the task to be marked.
+     */
     public void markAsUndone(int i) {
         Task curr = list.get(i-1);
         curr.markAsUndone();
         System.out.print("    Okay, I'll mark this as uncompleted.\n" + "    " + curr + "\n" + LINE);
     }
 
+    /**
+     * Deletes the task specified at i relative to the task list.
+     * @param i index of the task to be deleted.
+     */
     public void delete(int i) {
         Task curr = list.get(i-1);
         list.remove(i-1);

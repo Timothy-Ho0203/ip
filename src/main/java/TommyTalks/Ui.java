@@ -2,6 +2,9 @@ package TommyTalks;
 
 import Exceptions.InvalidFormatException;
 
+/**
+ * Responsible for most messages and responses from the bot.
+ */
 public class Ui {
     public static final String LINE = "    ------------------------------------\n";
     private boolean isStupid;
@@ -10,6 +13,10 @@ public class Ui {
         isStupid = false;
         greet();
     }
+
+    /**
+     * Print welcome message.
+     */
     private void greet() {
         String logo = """
                 ___________                           ___________       __   __           \s
@@ -29,6 +36,9 @@ public class Ui {
         System.out.print(greetings);
     }
 
+    /**
+     * Prints help message to show required format of commands.
+     */
     public void help() {
         String txt = """
                 \t------------------------------------
@@ -46,6 +56,10 @@ public class Ui {
                 \tdelete <i>
                 \tDeletes task i from the list
                 \t------------------------------------
+                \tfind <name>
+                \tFinds all tasks that contain <name>
+                \tin their description
+                \t------------------------------------
                 \ttodo <name>
                 \tAdds ToDo Task <name> to list
                 \t------------------------------------
@@ -61,15 +75,21 @@ public class Ui {
         System.out.print(txt);
     }
 
+    /**
+     * Prints exit message.
+     */
     public void exit() {
         String bye = """
             Bye, hope to see you again!
             ------------------------------------
-        """
-                ;
+        """;
         System.out.println(bye);
     }
 
+    /**
+     * Prints the error message specified by e.
+     * @param e Error that was caught.
+     */
     public void errorMessage(Exception e) {
         System.out.println(e.getMessage());
         System.out.print(LINE);
@@ -79,6 +99,10 @@ public class Ui {
         isStupid = true;
     }
 
+    /**
+     * Prints message to be displayed when user inputs invalid commands.
+     * @throws InvalidFormatException If input is of wrong format.
+     */
     public void invalidCommand() {
         if (!isStupid) {
             String err = """

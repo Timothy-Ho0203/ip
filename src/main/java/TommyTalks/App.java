@@ -17,6 +17,9 @@ public class App {
         ui = new Ui();
     }
 
+    /**
+     * Main driver code to run the app
+     */
     public void run() {
         Scanner input = new Scanner(System.in);
         boolean isRunning = true;
@@ -37,6 +40,11 @@ public class App {
         }
     }
 
+    /**
+     * Reads the input line from user to determine what command to produce.
+     * @param inst input text from user.
+     * @return Command to be executed.
+     */
     protected Command parseInput(String inst) {
         String[] keyword = inst.split(" ", 2);
         String type = keyword[0].toLowerCase();
