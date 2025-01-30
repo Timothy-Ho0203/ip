@@ -13,7 +13,7 @@ public class App {
     private Storage data;
     private Ui ui;
     public App() {
-        data = new Storage("./ip/data/TommyTalks.txt");
+        data = new Storage("./data/TommyTalks.txt");
         ui = new Ui();
     }
 
