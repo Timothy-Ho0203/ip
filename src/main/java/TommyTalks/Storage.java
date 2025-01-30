@@ -137,4 +137,33 @@ public class Storage {
         String result = String.format(base, curr, size);
         System.out.print(result + LINE);
     }
+
+    /**
+     * Finds all tasks with matching keyword(s)
+     */
+    public void find(String keyword) {
+        String queryMsg = """
+                \tAre these what you're looking for?
+                """;
+        int count = 1;
+        StringBuilder sb = new StringBuilder(queryMsg);
+        String base = "%d. ";
+        for (Task task : list) {
+            String name = task.getName().toLowerCase();
+            if (name.contains(keyword.toLowerCase())) {
+                String result = String.format(base, count);
+                sb.append("    " + result + task + "\n");
+                count += 1;
+            }
+        }
+        if (count == 1) {
+            String noneFound = """
+                    \tLooks like you have no
+                    \tmatching tasks...
+                    """;
+            System.out.print(noneFound + LINE);
+        } else {
+            System.out.print(sb + LINE);
+        }
+    }
 }

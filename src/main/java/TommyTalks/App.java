@@ -42,7 +42,7 @@ public class App {
         String type = keyword[0].toLowerCase();
         Command c = null;
         switch (type) {
-        case "list", "help", "mark", "unmark", "delete", "exit", "bye":
+        case "list", "help", "mark", "unmark", "delete", "find", "exit", "bye":
             c = new HelperCommand(inst);
             break;
         case "todo", "deadline", "event":
