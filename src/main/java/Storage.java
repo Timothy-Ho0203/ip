@@ -4,6 +4,9 @@ import Tasks.Task;
 import Tasks.ToDo;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +22,6 @@ public class Storage {
     private void loadFromFile() {
         this.list = new ArrayList<>();
         File f = new File(filePath);
-        // for file in f, add to tasklist and return
         if (!f.exists()) {
             try {
                 f.getParentFile().mkdirs();
@@ -46,10 +48,15 @@ public class Storage {
             curr = new ToDo(data[1]);
             break;
         case "deadline":
-            curr = new Deadline(data[1], data[3]);
+            DateTimeFormatter formatDeadline = DateTimeFormatter.ofPattern("dd MM yyyy");
+            LocalDate dueDate = LocalDate.parse(data[3].trim(), formatDeadline);
+            curr = new Deadline(data[1], dueDate);
             break;
         case "event":
-            curr = new Event(data[1], data[3], data[4]);
+            DateTimeFormatter formatEvent = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm");
+            LocalDateTime startDay = LocalDateTime.parse(data[3].trim(), formatEvent);
+            LocalDateTime endDay = LocalDateTime.parse(data[4].trim(), formatEvent);
+            curr = new Event(data[1], startDay, endDay);
             break;
         }
         if (data[2].equals("true")) {
