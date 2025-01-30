@@ -21,6 +21,10 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public String getKeyInfo() {
         return name + "," + isDone;
     }

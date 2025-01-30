@@ -13,7 +13,7 @@ public class App {
     private Storage data;
     private Ui ui;
     public App() {
-        data = new Storage("./ip/data/TommyTalks.txt");
+        data = new Storage("./data/TommyTalks.txt");
         ui = new Ui();
     }
 
@@ -42,7 +42,7 @@ public class App {
         String type = keyword[0].toLowerCase();
         Command c = null;
         switch (type) {
-        case "list", "help", "mark", "unmark", "delete", "exit", "bye":
+        case "list", "help", "mark", "unmark", "delete", "find", "exit", "bye":
             c = new HelperCommand(inst);
             break;
         case "todo", "deadline", "event":

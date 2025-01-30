@@ -4,6 +4,8 @@ import TommyTalks.Storage;
 import TommyTalks.Ui;
 import Exceptions.InvalidArgumentException;
 
+import java.util.Arrays;
+
 public class HelperCommand extends Command {
     protected String inst;
 
@@ -12,7 +14,7 @@ public class HelperCommand extends Command {
     }
     @Override
     public void execute(Storage taskList, Ui ui) {
-        String[] keyword = inst.split(" ", 2);
+        String[] keyword = inst.split(" ");
         String task = keyword[0].toLowerCase();
         switch (task) {
         case "help":
@@ -56,10 +58,23 @@ public class HelperCommand extends Command {
             try {
                 taskList.delete(Integer.parseInt(keyword[1]));
             } catch (NumberFormatException | NullPointerException e) {
+                throw new InvalidArgumentException("    That does not look like right,\n" +
+                        "    please use a number...");
+            }
+            break;
+        case "find":
+            if (keyword.length == 1) {
+                throw new InvalidArgumentException("    Please make sure you specify a \n    keyword to find...");
+            }
+            try {
+                String name = String.join(" ", Arrays.copyOfRange(keyword, 1, keyword.length));
+                taskList.find(name);
+            } catch (NumberFormatException | NullPointerException e) {
                 throw new InvalidArgumentException("    That does not look like a number,\n" +
                         "    please use a number...");
             }
             break;
+
         case "exit", "bye":
             isExit = false;
             taskList.save();
