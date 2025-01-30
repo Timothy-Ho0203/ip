@@ -4,7 +4,9 @@ import Commands.Command;
 import Commands.HelperCommand;
 import Commands.InvalidCommand;
 import Commands.TaskCommand;
-import Exceptions.*;
+
+import Exceptions.InvalidFormatException;
+import Exceptions.InvalidArgumentException;
 
 import java.util.Scanner;
 
@@ -48,17 +50,12 @@ public class App {
     protected Command parseInput(String inst) {
         String[] keyword = inst.split(" ", 2);
         String type = keyword[0].toLowerCase();
-        Command c = null;
-        switch (type) {
-        case "list", "help", "mark", "unmark", "delete", "find", "exit", "bye":
-            c = new HelperCommand(inst);
-            break;
-        case "todo", "deadline", "event":
-            c = new TaskCommand(inst);
-            break;
-        default:
-            c = new InvalidCommand(inst);
-        }
+
+        Command c = switch (type) {
+            case "list", "help", "mark", "unmark", "delete", "exit", "bye" -> new HelperCommand(inst);
+            case "todo", "deadline", "event" -> new TaskCommand(inst);
+            default -> new InvalidCommand(inst);
+        };
         return c;
     }
 }
