@@ -1,18 +1,25 @@
 package Tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    protected String date;
-    public Deadline(String name, String date) {
+    protected LocalDate date;
+    public Deadline(String name, LocalDate date) {
         super(name);
         this.date = date;
     }
 
     @Override
     public String getKeyInfo() {
-        return "deadline," + super.getKeyInfo() + "," + date;
+        DateTimeFormatter formatDeadline = DateTimeFormatter.ofPattern("dd MM yyyy");
+        String formattedDate = date.format(formatDeadline);
+        return "deadline," + super.getKeyInfo() + "," + formattedDate;
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + date + ")";
+        DateTimeFormatter formatDeadline = DateTimeFormatter.ofPattern("dd MM yyyy");
+        String formattedDate = date.format(formatDeadline);
+        return "[D]" + super.toString() + "(by: " + formattedDate + ")";
     }
 }

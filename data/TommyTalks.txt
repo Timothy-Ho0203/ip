@@ -1,0 +1,3 @@
+todo,league,false
+deadline,league,false,01 02 2023
+event,worlds,false,01 02 2023 18:00,10 02 2023 06:00

@@ -1,9 +1,11 @@
 import Exceptions.*;
 import Tasks.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
 
 public class App {
     public static final String LINE = "    ------------------------------------\n";
@@ -135,11 +137,15 @@ public class App {
                     if (name.isBlank() || date.isBlank()) {
                         throw new InvalidArgumentException("    Please don't leave any blanks");
                     }
-                    curr = new Deadline(name.trim(), date.trim());
+                    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM yyyy");
+                    LocalDate dueDate = LocalDate.parse(date.trim(), format);
+                    curr = new Deadline(name.trim(), dueDate);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new InvalidArgumentException("    Please give some arguments");
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new InvalidArgumentException("    Please put ur task in the right format");
+                } catch (DateTimeParseException e) {
+                    throw new InvalidFormatException("    Please put your date as DD MM YYYY");
                 }
                 break;
             }
@@ -152,11 +158,17 @@ public class App {
                     if (name.isBlank() || start.isBlank() || end.isBlank()) {
                         throw new InvalidArgumentException("    Please don't leave any blanks");
                     }
-                    curr = new Event(name.trim(), start.trim(), end.trim());
+                    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm");
+                    LocalDateTime startDay = LocalDateTime.parse(start.trim(), format);
+                    LocalDateTime endDay = LocalDateTime.parse(end.trim(), format);
+                    curr = new Event(name.trim(), startDay, endDay);
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new InvalidArgumentException("    Please give some arguments");
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new InvalidArgumentException("    Please put ur task in the right format");
+                } catch (DateTimeParseException e) {
+                    throw new InvalidFormatException("    Please input ur start/end as DD MM YYYY HH:MM " +
+                            "in 24 hour format");
                 }
                 break;
             }
