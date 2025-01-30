@@ -1,3 +1,9 @@
+package TommyTalks;
+
+import Commands.Command;
+import Commands.HelperCommand;
+import Commands.InvalidCommand;
+import Commands.TaskCommand;
 import Exceptions.*;
 
 import java.util.Scanner;

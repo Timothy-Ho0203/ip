@@ -1,6 +1,10 @@
+package Commands;
+
+import TommyTalks.Storage;
+import TommyTalks.Ui;
 import Exceptions.InvalidArgumentException;
 
-public class HelperCommand extends Command{
+public class HelperCommand extends Command {
     protected String inst;
 
     public HelperCommand(String inst) {

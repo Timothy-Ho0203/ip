@@ -7,7 +7,7 @@ ___________                           ___________       __   __
                                \/                                       \/
 
     -------------------------------
-    Hello! Welcome to TommyTalks
+    Hello! Welcome to TommyTalks.TommyTalks
     What can i do for you?
     -------------------------------
     Added:
