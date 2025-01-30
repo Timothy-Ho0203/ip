@@ -99,7 +99,7 @@ public class Storage {
         }
     }
 
-    public String displayTasks() {
+    public void displayTasks() {
         int count = 1;
         StringBuilder sb = new StringBuilder("    Here are the tasks you have: \n");
         String base = "%d. ";
@@ -108,7 +108,7 @@ public class Storage {
             sb.append("    " + result + task.toString() + "\n");
             count += 1;
         }
-        return sb.toString();
+        System.out.print(sb + LINE);
     }
 
     public void markAsDone(int i) {
