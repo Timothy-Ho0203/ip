@@ -11,35 +11,32 @@ public class Ui {
 
     public Ui() {
         isStupid = false;
-        greet();
     }
 
     /**
      * Print welcome message.
      */
-    private void greet() {
-        String logo = """
-                ___________                           ___________       __   __           \s
-                \\__    ___/___   _____   _____ ___.__.\\__    ___/____  |  | |  | __  ______
-                  |    | /  _ \\ /     \\ /     <   |  |  |    |  \\__  \\ |  | |  |/ / /  ___/
-                  |    |(  <_> )  Y Y  \\  Y Y  \\___  |  |    |   / __ \\|  |_|    <  \\___ \\\s
-                  |____| \\____/|__|_|__/__|_|__/ ____|  |____|  (______/____/__|_|\\/____  >
-                                               \\/                                       \\/\s
-                """;
-        System.out.println("Hello from\n" + logo);
+    public String greet() {
+//        String logo = """
+//                ___________                           ___________       __   __           \s
+//                \\__    ___/___   _____   _____ ___.__.\\__    ___/____  |  | |  | __  ______
+//                  |    | /  _ \\ /     \\ /     <   |  |  |    |  \\__  \\ |  | |  |/ / /  ___/
+//                  |    |(  <_> )  Y Y  \\  Y Y  \\___  |  |    |   / __ \\|  |_|    <  \\___ \\\s
+//                  |____| \\____/|__|_|__/__|_|__/ ____|  |____|  (______/____/__|_|\\/____  >
+//                                               \\/                                       \\/\s
+//                """;
+       //System.out.println("Hello from\n" + logo);
         String greetings = """
-            ------------------------------------
             Hello! Welcome to TommyTalks
             What can i do for you?
-            ------------------------------------
         """;
-        System.out.print(greetings);
+        return greetings;
     }
 
     /**
      * Prints help message to show required format of commands.
      */
-    public void help() {
+    public String help() {
         String txt = """
                 \t------------------------------------
                 \tHere is the list of commands
@@ -72,27 +69,27 @@ public class Ui {
                 \t<start> to <end> to list
                 \t------------------------------------
                 """;
-        System.out.print(txt);
+        return txt;
     }
 
     /**
      * Prints exit message.
      */
-    public void exit() {
+    public String exit() {
         String bye = """
             Bye, hope to see you again!
             ------------------------------------
         """;
-        System.out.println(bye);
+        return bye;
     }
 
     /**
      * Prints the error message specified by e.
+     *
      * @param e Error that was caught.
      */
-    public void errorMessage(Exception e) {
-        System.out.println(e.getMessage());
-        System.out.print(LINE);
+    public String printErrorMessage(Exception e) {
+        return e.getMessage();
     }
 
     public void setStupid() {
@@ -101,9 +98,10 @@ public class Ui {
 
     /**
      * Prints message to be displayed when user inputs invalid commands.
+     *
      * @throws InvalidFormatException If input is of wrong format.
      */
-    public void invalidCommand() {
+    public String handleInvalidCommand() {
         if (!isStupid) {
             String err = """
                     \to.O What's that? Please specify

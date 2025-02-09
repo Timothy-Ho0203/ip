@@ -14,6 +14,8 @@ public class App {
     public static final String LINE = "    ------------------------------------\n";
     private Storage data;
     private Ui ui;
+    private boolean isExit = false;
+    private int mistakeCount = 0;
     public App() {
         data = new Storage("./data/TommyTalks.txt");
         ui = new Ui();
@@ -37,13 +39,14 @@ public class App {
                 isRunning = c.getExitStatus();
             } catch (InvalidArgumentException | InvalidFormatException e) {
                 count += 1;
-                ui.errorMessage(e);
+                ui.printErrorMessage(e);
             }
         }
     }
 
     /**
      * Reads the input line from user to determine what command to produce.
+     *
      * @param inst input text from user.
      * @return Command to be executed.
      */
@@ -57,5 +60,35 @@ public class App {
             default -> new InvalidCommand(inst);
         };
         return c;
+    }
+
+    /**
+     * Returns response message according to command
+     *
+     * @param input text from user dialog box
+     * @return response message from Tommy
+     */
+    public String getResponse(String input) {
+        String response;
+        try {
+            Command c = parseInput(input);
+            response = c.execute(data, ui);
+            isExit = c.getExitStatus();
+        } catch (InvalidArgumentException | InvalidFormatException e) {
+            if (mistakeCount > 2) {
+                ui.setStupid();
+            }
+            mistakeCount += 1;
+            response = ui.printErrorMessage(e);
+        }
+        return response;
+    }
+
+    public boolean getExitStatus() {
+        return isExit;
+    }
+
+    public String greet() {
+        return ui.greet();
     }
 }

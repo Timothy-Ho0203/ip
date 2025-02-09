@@ -8,6 +8,7 @@ public class ToDo extends Task {
     /**
      * Returns key information (name, completion status) of the task.
      * e.g. (todo,test,false)
+     *
      * @return key information of the task presented in csv format
      */
     @Override

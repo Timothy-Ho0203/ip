@@ -14,6 +14,7 @@ public class Deadline extends Task {
      * Returns key information (name, completion status, end date) of the task.
      * Date is taken in DD MM YYYY format.
      * e.g. (deadline,test,false,01 01 2025)
+     *
      * @return key information of the task presented in csv format
      */
     @Override
@@ -22,6 +23,7 @@ public class Deadline extends Task {
         String formattedDate = date.format(formatDeadline);
         return "deadline," + super.getKeyInfo() + "," + formattedDate;
     }
+
     @Override
     public String toString() {
         DateTimeFormatter formatDeadline = DateTimeFormatter.ofPattern("dd MM yyyy");

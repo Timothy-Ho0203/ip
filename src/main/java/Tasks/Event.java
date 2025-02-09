@@ -17,6 +17,7 @@ public class Event extends Task {
      * Returns key information (name, completion status, start date, end date) of the task.
      * Date is taken in DD MM YYYY and time in 24-hour format.
      * e.g. (event,test,false,01 01 2025 12:00, 01 01 2025 15:00)
+     *
      * @return key information of the task presented in csv format
      */
     @Override
@@ -26,7 +27,6 @@ public class Event extends Task {
         String formattedEnd = end.format(formatEvent);
         return "event," + super.getKeyInfo() + "," + formattedStart + "," + formattedEnd;
     }
-
 
     @Override
     public String toString() {

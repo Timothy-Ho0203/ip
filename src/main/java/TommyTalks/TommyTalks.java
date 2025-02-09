@@ -1,10 +1,12 @@
 package TommyTalks;
 
+import javafx.application.Application;
+
+/**
+ * Launcher for the GUI
+ */
 public class TommyTalks {
     public static void main(String[] args) {
-        App chatBot = new App();
-        chatBot.run();
+        Application.launch(Main.class, args);
     }
-
-
 }

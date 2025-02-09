@@ -60,6 +60,7 @@ public class Storage {
     /**
      * Populates task list of Storage object.
      * Serves as a helper function when Storage is initialized.
+     *
      * @param line text read from file containing previous task descriptions.
      */
     private void addToList(String line) {
@@ -90,9 +91,10 @@ public class Storage {
     /**
      * Adds task to task list and writes task description to file.
      */
-    public void saveToFile(Task task) {
+    public String saveToFile(Task task) {
         tasks.add(task);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
             writer.append(task.getKeyInfo());
             writer.newLine();
         } catch (IOException e) {
@@ -105,7 +107,7 @@ public class Storage {
         """;
         int size = tasks.size();
         String result = String.format(base, task, size);
-        System.out.print(result + LINE);
+        return result;
     }
 
     /**
@@ -113,15 +115,16 @@ public class Storage {
      */
     public void save() {
         // Reset the file
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             writer.write("");
         } catch (IOException e) {
             System.out.println("Error saving: " + e.getMessage());
         }
         // Write the final tasks before closing
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
+        try  {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
+            for (Task task : tasks) {
                 writer.append(task.getKeyInfo());
                 writer.newLine();
             }
@@ -133,7 +136,7 @@ public class Storage {
     /**
      * Lists out all tasks currently available regardless of completion status.
      */
-    public void displayTasks() {
+    public String displayTasks() {
         int count = 1;
         StringBuilder sb = new StringBuilder("    Here are the tasks you have: \n");
         String base = "%d. ";
@@ -143,34 +146,38 @@ public class Storage {
             sb.append("    " + result + task.toString() + "\n");
             count += 1;
         }
-        System.out.print(sb + LINE);
+        return sb.toString();
     }
 
     /**
      * Marks the task specified at i relative to the task list as completed.
+     *
      * @param i index of the task to be marked.
      */
-    public void markAsDone(int i) {
+    public String markAsDone(int i) {
         Task curr = tasks.get(i-1);
         curr.markAsDone();
-        System.out.print("    Great! I'll mark this as done then.\n" + "    " + curr + "\n" + LINE);
+        return "Great! I'll mark this as done then.";
     }
 
     /**
      * Marks the task specified at i relative to the task list as uncompleted.
+     *
      * @param i index of the task to be marked.
      */
-    public void markAsUndone(int i) {
+    public String markAsUndone(int i) {
         Task curr = tasks.get(i-1);
         curr.markAsUndone();
-        System.out.print("    Okay, I'll mark this as uncompleted.\n" + "    " + curr + "\n" + LINE);
+        //System.out.print("    Okay, I'll mark this as uncompleted.\n" + "    " + curr + "\n" + LINE);
+        return "Okay, I'll mark this as uncompleted";
     }
 
     /**
      * Deletes the task specified at i relative to the task list.
+     *
      * @param i index of the task to be deleted.
      */
-    public void delete(int i) {
+    public String delete(int i) {
         Task curr = tasks.get(i-1);
         tasks.remove(i-1);
 
@@ -181,20 +188,20 @@ public class Storage {
         """;
         int size = tasks.size();
         String result = String.format(base, curr, size);
-        System.out.print(result + LINE);
+        return result;
     }
 
     /**
      * Finds all tasks with matching keyword(s)
      */
-    public void find(String keyword) {
+    public String find(String keyword) {
         String queryMsg = """
                 \tAre these what you're looking for?
                 """;
         int count = 1;
         StringBuilder sb = new StringBuilder(queryMsg);
         String base = "%d. ";
-        for (Task task : list) {
+        for (Task task : tasks) {
             String name = task.getName().toLowerCase();
             if (name.contains(keyword.toLowerCase())) {
                 String result = String.format(base, count);
@@ -207,9 +214,9 @@ public class Storage {
                     \tLooks like you have no
                     \tmatching tasks...
                     """;
-            System.out.print(noneFound + LINE);
+            return noneFound;
         } else {
-            System.out.print(sb + LINE);
+            return sb.toString();
         }
     }
 }

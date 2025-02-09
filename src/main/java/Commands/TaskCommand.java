@@ -28,6 +28,7 @@ public class TaskCommand extends Command {
 
     /**
      * Execute the command according to their functionalities.
+     *
      * @param taskList Storage that holds all tasks currently.
      * @param ui UI to manage printing of messages.
      * @throws InvalidArgumentException If commands are not given appropriate arguments.
@@ -35,7 +36,7 @@ public class TaskCommand extends Command {
      * DD MM YYYY or 24-hour format.
      */
     @Override
-    public void execute(Storage taskList, Ui ui) {
+    public String execute(Storage taskList, Ui ui) {
         Task curr = null;
         String type = task.split(" ", 2)[0].toLowerCase();
         switch(type) {
@@ -94,6 +95,7 @@ public class TaskCommand extends Command {
             }
             break;
         }
-        taskList.saveToFile(curr);
+        String response = taskList.saveToFile(curr);
+        return response;
     }
 }
