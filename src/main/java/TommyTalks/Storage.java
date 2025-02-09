@@ -1,10 +1,5 @@
 package TommyTalks;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
-
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,6 +14,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
 /**
  * Saves and loads tasks from/to hard disk.
  * Stores the tasks in an ArrayList.
@@ -104,7 +103,7 @@ public class Storage {
             Added:
             %s
             You have %d tasks in the list.
-        """;
+            """;
         int size = tasks.size();
         String result = String.format(base, task, size);
         return result;
@@ -140,8 +139,7 @@ public class Storage {
         int count = 1;
         StringBuilder sb = new StringBuilder("    Here are the tasks you have: \n");
         String base = "%d. ";
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+        for (Task task : tasks) {
             String result = String.format(base, count);
             sb.append("    " + result + task.toString() + "\n");
             count += 1;
@@ -155,7 +153,7 @@ public class Storage {
      * @param i index of the task to be marked.
      */
     public String markAsDone(int i) {
-        Task curr = tasks.get(i-1);
+        Task curr = tasks.get(i - 1);
         curr.markAsDone();
         return "Great! I'll mark this as done then.";
     }
@@ -166,9 +164,8 @@ public class Storage {
      * @param i index of the task to be marked.
      */
     public String markAsUndone(int i) {
-        Task curr = tasks.get(i-1);
+        Task curr = tasks.get(i - 1);
         curr.markAsUndone();
-        //System.out.print("    Okay, I'll mark this as uncompleted.\n" + "    " + curr + "\n" + LINE);
         return "Okay, I'll mark this as uncompleted";
     }
 
@@ -178,8 +175,8 @@ public class Storage {
      * @param i index of the task to be deleted.
      */
     public String delete(int i) {
-        Task curr = tasks.get(i-1);
-        tasks.remove(i-1);
+        Task curr = tasks.get(i - 1);
+        tasks.remove(i - 1);
 
         String base = """
             Removed:

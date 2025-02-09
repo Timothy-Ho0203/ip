@@ -25,11 +25,10 @@ public class Ui {
 //                  |____| \\____/|__|_|__/__|_|__/ ____|  |____|  (______/____/__|_|\\/____  >
 //                                               \\/                                       \\/\s
 //                """;
-       //System.out.println("Hello from\n" + logo);
         String greetings = """
             Hello! Welcome to TommyTalks
             What can i do for you?
-        """;
+            """;
         return greetings;
     }
 
@@ -79,7 +78,7 @@ public class Ui {
         String bye = """
             Bye, hope to see you again!
             ------------------------------------
-        """;
+            """;
         return bye;
     }
 

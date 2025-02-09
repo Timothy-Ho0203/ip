@@ -1,14 +1,14 @@
 package TommyTalks;
 
+import java.util.Scanner;
+
 import Commands.Command;
 import Commands.HelperCommand;
 import Commands.InvalidCommand;
 import Commands.TaskCommand;
 
-import Exceptions.InvalidFormatException;
 import Exceptions.InvalidArgumentException;
-
-import java.util.Scanner;
+import Exceptions.InvalidFormatException;
 
 public class App {
     public static final String LINE = "    ------------------------------------\n";

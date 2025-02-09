@@ -1,11 +1,11 @@
 package Commands;
 
+import java.util.Arrays;
+
 import TommyTalks.Storage;
 import TommyTalks.Ui;
 
 import Exceptions.InvalidArgumentException;
-
-import java.util.Arrays;
 
 /**
  * Commands that display information and help user interaction.
@@ -49,8 +49,8 @@ public class HelperCommand extends Command {
             try {
                 response = taskList.markAsDone(Integer.parseInt(keyword[1]));
             } catch (NumberFormatException | NullPointerException e) {
-                throw new InvalidArgumentException("    That does not look like a number,\n" +
-                        "    please use a number...");
+                throw new InvalidArgumentException("    That does not look like a number,\n"
+                        + "    please use a number...");
             }
             break;
         case "unmark":
@@ -60,8 +60,8 @@ public class HelperCommand extends Command {
             try {
                 response = taskList.markAsUndone(Integer.parseInt(keyword[1]));
             } catch (NumberFormatException | NullPointerException e) {
-                throw new InvalidArgumentException("    That does not look like a number,\n" +
-                        "    please use a number...");
+                throw new InvalidArgumentException("    That does not look like a number,\n"
+                        + "    please use a number...");
             }
             break;
         case "delete":
@@ -71,8 +71,8 @@ public class HelperCommand extends Command {
             try {
                 response = taskList.delete(Integer.parseInt(keyword[1]));
             } catch (NumberFormatException | NullPointerException e) {
-                throw new InvalidArgumentException("    That does not look like right,\n" +
-                        "    please use a number...");
+                throw new InvalidArgumentException("    That does not look like right,\n"
+                        + "    please use a number...");
             }
             break;
         case "find":
@@ -83,11 +83,10 @@ public class HelperCommand extends Command {
                 String name = String.join(" ", Arrays.copyOfRange(keyword, 1, keyword.length));
                 response = taskList.find(name);
             } catch (NumberFormatException | NullPointerException e) {
-                throw new InvalidArgumentException("    That does not look like a number,\n" +
-                        "    please use a number...");
+                throw new InvalidArgumentException("    That does not look like a number,\n"
+                        + "    please use a number...");
             }
             break;
-
         case "exit", "bye":
             isExit = true;
             taskList.save();

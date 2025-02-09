@@ -33,7 +33,7 @@ public class TaskCommand extends Command {
      * @param ui UI to manage printing of messages.
      * @throws InvalidArgumentException If commands are not given appropriate arguments.
      * @throws InvalidFormatException If date and time are not given in
-     * DD MM YYYY or 24-hour format.
+     *     DD MM YYYY or 24-hour format.
      */
     @Override
     public String execute(Storage taskList, Ui ui) {
@@ -90,8 +90,8 @@ public class TaskCommand extends Command {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new InvalidArgumentException("    Please put ur task in the right format");
             } catch (DateTimeParseException e) {
-                throw new InvalidFormatException("    Please input ur start/end as DD MM YYYY HH:MM " +
-                        "in 24 hour format");
+                throw new InvalidFormatException("    Please input ur start/end as DD MM YYYY HH:MM "
+                        + "in 24 hour format");
             }
             break;
         }
