@@ -95,6 +95,7 @@ public class TaskCommand extends Command {
             }
             break;
         }
+        assert curr != null : "No valid event was created";
         String response = taskList.saveToFile(curr);
         return response;
     }

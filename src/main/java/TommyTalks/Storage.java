@@ -27,6 +27,7 @@ public class Storage {
     private String filePath;
     private List<Task> tasks;
     public Storage(String filePath) {
+        assert filePath != null : "Invalid filePath";
         this.filePath = filePath;
         loadFromFile();
     }
@@ -81,6 +82,9 @@ public class Storage {
             curr = new Event(data[1], startDay, endDay);
             break;
         }
+
+        assert curr != null : "No task type was identified";
+
         if (data[2].equals("true")) {
             curr.markAsDone();
         }
