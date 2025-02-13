@@ -99,6 +99,7 @@ public class TaskCommand extends Command {
         default:
             return "Something went wrong with Task creation...";
         }
+        assert curr != null : "No valid event was created";
         String response = taskList.saveToFile(curr);
         return response;
     }

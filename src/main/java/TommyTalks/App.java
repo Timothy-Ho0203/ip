@@ -26,6 +26,7 @@ public class App {
      * @return Command to be executed.
      */
     protected Command parseInput(String inst) {
+        assert inst != null : "No input was detected";
         String[] keyword = inst.split(" ", 2);
         String type = keyword[0].toLowerCase();
 
