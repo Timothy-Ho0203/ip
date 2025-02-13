@@ -2,7 +2,7 @@
 /.idea/
 /out/
 /*.iml
-/data/
+data/
 /text-ui-test
 
 # Gradle build files

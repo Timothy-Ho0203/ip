@@ -48,6 +48,13 @@ public class Ui {
                 \tFinds all tasks that contain <name>
                 \tin their description
                 \t------------------------------------
+                \tpriority <i> <p>
+                \tSets the priority of the task at i
+                \tto a priority of p
+                \t------------------------------------
+                \tsort
+                \tSorts the list according to priority
+                \t------------------------------------
                 \tbye
                 \tExits the app
                 \t------------------------------------
@@ -72,7 +79,6 @@ public class Ui {
     public String exit() {
         String bye = """
             Bye, hope to see you again!
-            ------------------------------------
             """;
         return bye;
     }
@@ -150,5 +156,14 @@ public class Ui {
             matching tasks...
             """;
         return noneFound;
+    }
+
+    public static String adjustedPriorityMessage(Task task) {
+        String base = """
+            I have adjusted the following priority:
+            %s
+            Please call sort to view your new list.
+        """;
+        return String.format(base, task);
     }
 }

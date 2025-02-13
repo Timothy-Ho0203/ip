@@ -92,6 +92,21 @@ public class HelperCommand extends Command {
             taskList.save();
             response = ui.exit();
             break;
+        case "sort":
+            taskList.sort();
+            response = taskList.displayTasks();
+            break;
+        case "priority":
+            if (keywords.length < 3) {
+                throw new InvalidArgumentException("Please give a task and priority level to set");
+            }
+            try {
+                response = taskList.setPriority(Integer.parseInt(keywords[1]), Integer.parseInt(keywords[2]));
+            } catch (NumberFormatException | NullPointerException e) {
+                throw new InvalidArgumentException("That does not look like right,\n"
+                        + "please use a number...");
+            }
+            break;
         default:
             return "Something went wrong with the helper command...";
         }

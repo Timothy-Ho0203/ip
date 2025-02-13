@@ -132,11 +132,11 @@ public class Storage {
      */
     public String displayTasks() {
         int count = 1;
-        StringBuilder sb = new StringBuilder("    Here are the tasks you have: \n");
+        StringBuilder sb = new StringBuilder("Here are the tasks you have: \n");
         String base = "%d. ";
         for (Task task : tasks) {
             String result = String.format(base, count);
-            sb.append("    " + result + task.toString() + "\n");
+            sb.append(result + task.toString() + "\n");
             count += 1;
         }
         return sb.toString();
@@ -202,5 +202,24 @@ public class Storage {
         } else {
             return sb.toString();
         }
+    }
+
+    /**
+     * Sorts the current task list according to priority
+     */
+    public void sort() {
+        tasks.sort(null);
+    }
+
+    /**
+     * Sets the priority of the specified task to desired priority
+     *
+     * @param idx index of the task
+     * @param priority priority of the task to be set
+     */
+    public String setPriority(int idx, int priority) {
+        Task curr = tasks.get(idx - 1);
+        curr.setPriority(priority);
+        return Ui.adjustedPriorityMessage(curr);
     }
 }
