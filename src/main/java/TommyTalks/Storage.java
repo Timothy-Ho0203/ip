@@ -23,7 +23,6 @@ import Tasks.ToDo;
  * Stores the tasks in an ArrayList.
  */
 public class Storage {
-    public static final String LINE = "    ------------------------------------\n";
     private String filePath;
     private List<Task> tasks;
     public Storage(String filePath) {
@@ -92,21 +91,15 @@ public class Storage {
      */
     public String saveToFile(Task task) {
         tasks.add(task);
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.append(task.getKeyInfo());
             writer.newLine();
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
-        String base = """
-            Added:
-            %s
-            You have %d tasks in the list.
-            """;
+
         int size = tasks.size();
-        String result = String.format(base, task, size);
-        return result;
+        return Ui.additionMessage(task, size);
     }
 
     /**
@@ -114,15 +107,13 @@ public class Storage {
      */
     public void save() {
         // Reset the file
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
             writer.write("");
         } catch (IOException e) {
             System.out.println("Error saving: " + e.getMessage());
         }
         // Write the final tasks before closing
-        try  {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             for (Task task : tasks) {
                 writer.append(task.getKeyInfo());
                 writer.newLine();
@@ -177,15 +168,8 @@ public class Storage {
     public String delete(int i) {
         Task curr = tasks.get(i - 1);
         tasks.remove(i - 1);
-
-        String base = """
-            Removed:
-            %s
-            Now, you have %d tasks in the list.
-        """;
         int size = tasks.size();
-        String result = String.format(base, curr, size);
-        return result;
+        return Ui.deletionMessage(curr, size);
     }
 
     /**
@@ -193,25 +177,24 @@ public class Storage {
      */
     public String find(String keyword) {
         String queryMsg = """
-                \tAre these what you're looking for?
-                """;
+            Are these what you're looking for?
+            """;
         int count = 1;
         StringBuilder sb = new StringBuilder(queryMsg);
         String base = "%d. ";
         for (Task task : tasks) {
             String name = task.getName().toLowerCase();
+
+            // If a task was found, add to the base string
             if (name.contains(keyword.toLowerCase())) {
                 String result = String.format(base, count);
                 sb.append("    " + result + task + "\n");
                 count += 1;
             }
         }
+
         if (count == 1) {
-            String noneFound = """
-                    \tLooks like you have no
-                    \tmatching tasks...
-                    """;
-            return noneFound;
+            return Ui.noneFoundMessage();
         } else {
             return sb.toString();
         }

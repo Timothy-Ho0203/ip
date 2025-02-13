@@ -28,6 +28,12 @@ public class Task {
         return this.name;
     }
 
+    /**
+     * Returns key information (name, completion status) of the task.
+     * e.g. (test,false)
+     *
+     * @return key information of the task presented in csv format
+     */
     public String getKeyInfo() {
         return name + "," + isDone;
     }
