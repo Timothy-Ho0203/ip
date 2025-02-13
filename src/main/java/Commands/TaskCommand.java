@@ -44,41 +44,43 @@ public class TaskCommand extends Command {
             try {
                 String name = task.substring(5);
                 if (name.isBlank()) {
-                    throw new InvalidArgumentException("    Please put in a task at least");
+                    throw new InvalidArgumentException("Please put in a task at least");
                 }
                 curr = new ToDo(name.trim());
             } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidArgumentException("    Please put in a task at least");
+                throw new InvalidArgumentException("Please put in a task at least");
             }
             break;
         case "deadline":
             try {
+                // Split the input into appropriate sections from "deadline name /by date"
                 String[] arr = task.split("/");
                 String name = arr[0].substring(9);
                 String date = arr[1].substring(3);
                 if (name.isBlank() || date.isBlank()) {
-                    throw new InvalidArgumentException("    Please don't leave any blanks");
+                    throw new InvalidArgumentException("Please don't leave any blanks");
                 }
 
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM yyyy");
                 LocalDate dueDate = LocalDate.parse(date.trim(), format);
                 curr = new Deadline(name.trim(), dueDate);
             } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidArgumentException("    Please give some arguments");
+                throw new InvalidArgumentException("Please give some arguments");
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidArgumentException("    Please put ur task in the right format");
+                throw new InvalidArgumentException("Please put ur task in the right format");
             } catch (DateTimeParseException e) {
-                throw new InvalidFormatException("    Please put your date as DD MM YYYY");
+                throw new InvalidFormatException("Please put your date as DD MM YYYY");
             }
             break;
         case "event":
             try {
+                // Split the input into appropriate sections from "event name /from date /to date"
                 String[] arr = task.split("/");
                 String name = arr[0].substring(6);
                 String start = arr[1].substring(5);
                 String end = arr[2].substring(3);
                 if (name.isBlank() || start.isBlank() || end.isBlank()) {
-                    throw new InvalidArgumentException("    Please don't leave any blanks");
+                    throw new InvalidArgumentException("Please don't leave any blanks");
                 }
 
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm");
@@ -86,14 +88,16 @@ public class TaskCommand extends Command {
                 LocalDateTime endDay = LocalDateTime.parse(end.trim(), format);
                 curr = new Event(name.trim(), startDay, endDay);
             } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidArgumentException("    Please give some arguments");
+                throw new InvalidArgumentException("Please give some arguments");
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidArgumentException("    Please put ur task in the right format");
+                throw new InvalidArgumentException("Please put ur task in the right format");
             } catch (DateTimeParseException e) {
-                throw new InvalidFormatException("    Please input ur start/end as DD MM YYYY HH:MM "
+                throw new InvalidFormatException("Please input ur start/end as DD MM YYYY HH:MM "
                         + "in 24 hour format");
             }
             break;
+        default:
+            return "Something went wrong with Task creation...";
         }
         String response = taskList.saveToFile(curr);
         return response;
