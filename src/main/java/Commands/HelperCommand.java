@@ -26,61 +26,61 @@ public class HelperCommand extends Command {
      */
     @Override
     public String execute(Storage taskList, Ui ui) {
-        String[] keyword = inst.split(" ");
-        String task = keyword[0].toLowerCase();
+        String[] keywords = inst.split(" ");
+        String task = keywords[0].toLowerCase();
         String response = "test";
         switch (task) {
         case "help":
-            if (keyword.length != 1) {
+            if (keywords.length != 1) {
                 throw new InvalidArgumentException("Please make sure your command is a single word!");
             }
             response = ui.help();
             break;
         case "list":
-            if (keyword.length != 1) {
+            if (keywords.length != 1) {
                 throw new InvalidArgumentException("Please make sure your command is a\nsingle word!");
             }
             response = taskList.displayTasks();
             break;
         case "mark":
-            if (keyword.length == 1) {
+            if (keywords.length == 1) {
                 throw new InvalidArgumentException("Please make sure you specify a task\nto mark...");
             }
             try {
-                response = taskList.markAsDone(Integer.parseInt(keyword[1]));
+                response = taskList.markAsDone(Integer.parseInt(keywords[1]));
                 break;
             } catch (NumberFormatException | NullPointerException e) {
                 throw new InvalidArgumentException("That does not look like a number,\n"
                         + "please use a number...");
             }
         case "unmark":
-            if (keyword.length == 1) {
+            if (keywords.length == 1) {
                 throw new InvalidArgumentException("Please make sure you specify a task\nto mark...");
             }
             try {
-                response = taskList.markAsUndone(Integer.parseInt(keyword[1]));
+                response = taskList.markAsUndone(Integer.parseInt(keywords[1]));
             } catch (NumberFormatException | NullPointerException e) {
                 throw new InvalidArgumentException("That does not look like a number,\n"
                         + "please use a number...");
             }
             break;
         case "delete":
-            if (keyword.length == 1) {
+            if (keywords.length == 1) {
                 throw new InvalidArgumentException("Please make sure you specify a task\nto mark...");
             }
             try {
-                response = taskList.delete(Integer.parseInt(keyword[1]));
+                response = taskList.delete(Integer.parseInt(keywords[1]));
             } catch (NumberFormatException | NullPointerException e) {
                 throw new InvalidArgumentException("That does not look like right,\n"
                         + "please use a number...");
             }
             break;
         case "find":
-            if (keyword.length == 1) {
-                throw new InvalidArgumentException("Please make sure you specify a \nkeyword to find...");
+            if (keywords.length == 1) {
+                throw new InvalidArgumentException("Please make sure you specify a \nkeywords to find...");
             }
             try {
-                String name = String.join(" ", Arrays.copyOfRange(keyword, 1, keyword.length));
+                String name = String.join(" ", Arrays.copyOfRange(keywords, 1, keywords.length));
                 response = taskList.find(name);
             } catch (NumberFormatException | NullPointerException e) {
                 throw new InvalidArgumentException("That does not look like a number,\n"
