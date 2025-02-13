@@ -1,12 +1,12 @@
 package TommyTalks;
 
 import Exceptions.InvalidFormatException;
+import Tasks.Task;
 
 /**
  * Responsible for most messages and responses from the bot.
  */
 public class Ui {
-    public static final String LINE = "    ------------------------------------\n";
     private boolean isStupid;
 
     public Ui() {
@@ -17,14 +17,6 @@ public class Ui {
      * Print welcome message.
      */
     public String greet() {
-//        String logo = """
-//                ___________                           ___________       __   __           \s
-//                \\__    ___/___   _____   _____ ___.__.\\__    ___/____  |  | |  | __  ______
-//                  |    | /  _ \\ /     \\ /     <   |  |  |    |  \\__  \\ |  | |  |/ / /  ___/
-//                  |    |(  <_> )  Y Y  \\  Y Y  \\___  |  |    |   / __ \\|  |_|    <  \\___ \\\s
-//                  |____| \\____/|__|_|__/__|_|__/ ____|  |____|  (______/____/__|_|\\/____  >
-//                                               \\/                                       \\/\s
-//                """;
         String greetings = """
             Hello! Welcome to TommyTalks
             What can i do for you?
@@ -55,6 +47,9 @@ public class Ui {
                 \tfind <name>
                 \tFinds all tasks that contain <name>
                 \tin their description
+                \t------------------------------------
+                \tbye
+                \tExits the app
                 \t------------------------------------
                 \ttodo <name>
                 \tAdds ToDo Task <name> to list
@@ -103,17 +98,57 @@ public class Ui {
     public String handleInvalidCommand() {
         if (!isStupid) {
             String err = """
-                    \to.O What's that? Please specify
-                    \tthe type of event(todo, deadline,
-                    \tevent etc) in the appropriate
-                    \tformats. I would appreciate it!""";
+                o.O What's that? Please specify
+                the type of event(todo, deadline,
+                event etc) in the appropriate
+                formats. I would appreciate it!""";
             throw new InvalidFormatException(err);
         } else {
             String help = """
-                    \tYou seem a lil lost, would you
-                    \tlike to view all possible
-                    \tcommands using help?""";
+                You seem a lil lost, would you
+                like to view all possible
+                commands using help?""";
             throw new InvalidFormatException(help);
         }
+    }
+
+    /**
+     * Prints message to be displayed after successfully adding a task
+     *
+     * @param task Task that has been added
+     * @param i Index of the newly added Task
+     * @return String message of a successful addition
+     */
+    public static String additionMessage(Task task, int i) {
+        String base = """
+            Added:
+            %s
+            You have %d tasks in the list.
+            """;
+        return String.format(base, task, i);
+    }
+
+    /**
+     * Prints message to be displayed after successfully deleting a task
+     *
+     * @param task Task to be deleted
+     * @param i Index of the deleted Task
+     * @return String message of a successful deletion
+     */
+    public static String deletionMessage(Task task, int i) {
+        String base = """
+            Removed:
+            %s
+            Now, you have %d tasks in the list.
+        """;
+        return String.format(base, task, i);
+    }
+
+    public static String noneFoundMessage() {
+        String noneFound = """
+            Looks like you have no
+            matching tasks...
+            """;
+        return noneFound;
     }
 }

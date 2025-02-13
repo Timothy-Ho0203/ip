@@ -1,7 +1,5 @@
 package TommyTalks;
 
-import java.util.Scanner;
-
 import Commands.Command;
 import Commands.HelperCommand;
 import Commands.InvalidCommand;
@@ -22,29 +20,6 @@ public class App {
     }
 
     /**
-     * Main driver code to run the app
-     */
-    public void run() {
-        Scanner input = new Scanner(System.in);
-        boolean isRunning = true;
-        int count = 0;
-        while (isRunning) {
-            if (count > 2) {
-                ui.setStupid();
-            }
-            String in = input.nextLine();
-            try {
-                Command c = parseInput(in);
-                c.execute(data, ui);
-                isRunning = c.getExitStatus();
-            } catch (InvalidArgumentException | InvalidFormatException e) {
-                count += 1;
-                ui.printErrorMessage(e);
-            }
-        }
-    }
-
-    /**
      * Reads the input line from user to determine what command to produce.
      *
      * @param inst input text from user.
@@ -55,7 +30,7 @@ public class App {
         String type = keyword[0].toLowerCase();
 
         Command c = switch (type) {
-            case "list", "help", "mark", "unmark", "delete", "exit", "bye" -> new HelperCommand(inst);
+            case "list", "help", "mark", "unmark", "delete", "find", "exit", "bye" -> new HelperCommand(inst);
             case "todo", "deadline", "event" -> new TaskCommand(inst);
             default -> new InvalidCommand(inst);
         };
@@ -71,10 +46,12 @@ public class App {
     public String getResponse(String input) {
         String response;
         try {
+            // Get the specific type of command and execute it
             Command c = parseInput(input);
             response = c.execute(data, ui);
             isExit = c.getExitStatus();
         } catch (InvalidArgumentException | InvalidFormatException e) {
+            // Customize help message for lost users
             if (mistakeCount > 2) {
                 ui.setStupid();
             }

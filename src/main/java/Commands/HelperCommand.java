@@ -32,65 +32,68 @@ public class HelperCommand extends Command {
         switch (task) {
         case "help":
             if (keyword.length != 1) {
-                throw new InvalidArgumentException("    Please make sure your command is a single word!");
+                throw new InvalidArgumentException("Please make sure your command is a single word!");
             }
             response = ui.help();
             break;
         case "list":
             if (keyword.length != 1) {
-                throw new InvalidArgumentException("    Please make sure your command is a\n    single word!");
+                throw new InvalidArgumentException("Please make sure your command is a\nsingle word!");
             }
             response = taskList.displayTasks();
             break;
         case "mark":
             if (keyword.length == 1) {
-                throw new InvalidArgumentException("    Please make sure you specify a task\n    to mark...");
+                throw new InvalidArgumentException("Please make sure you specify a task\nto mark...");
             }
             try {
                 response = taskList.markAsDone(Integer.parseInt(keyword[1]));
+                break;
             } catch (NumberFormatException | NullPointerException e) {
-                throw new InvalidArgumentException("    That does not look like a number,\n"
-                        + "    please use a number...");
+                throw new InvalidArgumentException("That does not look like a number,\n"
+                        + "please use a number...");
             }
-            break;
         case "unmark":
             if (keyword.length == 1) {
-                throw new InvalidArgumentException("    Please make sure you specify a task\n    to mark...");
+                throw new InvalidArgumentException("Please make sure you specify a task\nto mark...");
             }
             try {
                 response = taskList.markAsUndone(Integer.parseInt(keyword[1]));
             } catch (NumberFormatException | NullPointerException e) {
-                throw new InvalidArgumentException("    That does not look like a number,\n"
-                        + "    please use a number...");
+                throw new InvalidArgumentException("That does not look like a number,\n"
+                        + "please use a number...");
             }
             break;
         case "delete":
             if (keyword.length == 1) {
-                throw new InvalidArgumentException("    Please make sure you specify a task\n    to mark...");
+                throw new InvalidArgumentException("Please make sure you specify a task\nto mark...");
             }
             try {
                 response = taskList.delete(Integer.parseInt(keyword[1]));
             } catch (NumberFormatException | NullPointerException e) {
-                throw new InvalidArgumentException("    That does not look like right,\n"
-                        + "    please use a number...");
+                throw new InvalidArgumentException("That does not look like right,\n"
+                        + "please use a number...");
             }
             break;
         case "find":
             if (keyword.length == 1) {
-                throw new InvalidArgumentException("    Please make sure you specify a \n    keyword to find...");
+                throw new InvalidArgumentException("Please make sure you specify a \nkeyword to find...");
             }
             try {
                 String name = String.join(" ", Arrays.copyOfRange(keyword, 1, keyword.length));
                 response = taskList.find(name);
             } catch (NumberFormatException | NullPointerException e) {
-                throw new InvalidArgumentException("    That does not look like a number,\n"
-                        + "    please use a number...");
+                throw new InvalidArgumentException("That does not look like a number,\n"
+                        + "please use a number...");
             }
             break;
         case "exit", "bye":
             isExit = true;
             taskList.save();
             response = ui.exit();
+            break;
+        default:
+            return "Something went wrong with the helper command...";
         }
         return response;
     }
