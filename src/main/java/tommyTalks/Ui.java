@@ -1,7 +1,7 @@
-package TommyTalks;
+package tommyTalks;
 
-import Exceptions.InvalidFormatException;
-import Tasks.Task;
+import exceptions.InvalidFormatException;
+import tasks.Task;
 
 /**
  * Responsible for most messages and responses from the bot.
@@ -14,7 +14,7 @@ public class Ui {
     }
 
     /**
-     * Print welcome message.
+     * Prints welcome message.
      */
     public String greet() {
         String greetings = """
@@ -64,10 +64,14 @@ public class Ui {
                 \tdeadline <name> /by <date>
                 \tAdds Deadline Task <name> due on
                 \t<date> to list
+                \t<date> in DD MM YYYY format
                 \t------------------------------------
                 \tevent <name> /from <start> /to <end>
                 \tAdds Event Task <name> starting from
                 \t<start> to <end> to list
+                \t<start> in DD MM YYYY HH:MM format
+                \t<end> in DD MM YYYY HH:MM format
+                \tHH:MM follows 24 hour format
                 \t------------------------------------
                 """;
         return txt;
@@ -150,6 +154,11 @@ public class Ui {
         return String.format(base, task, i);
     }
 
+    /**
+     * Prints message to be displayed if no tasks were found using {@code find}
+     *
+     * @return String message of an unsuccessful find
+     */
     public static String noneFoundMessage() {
         String noneFound = """
             Looks like you have no
@@ -158,6 +167,12 @@ public class Ui {
         return noneFound;
     }
 
+    /**
+     * Prints message to be displayed after adjusting the priority of a task
+     *
+     * @param task Task to be adjusted
+     * @return String message of a successful adjustment
+     */
     public static String adjustedPriorityMessage(Task task) {
         String base = """
             I have adjusted the following priority:
@@ -165,5 +180,25 @@ public class Ui {
             Please call sort to view your new list.
         """;
         return String.format(base, task);
+    }
+
+    /**
+     * Prints message to be displayed after successfully marking a task as completed
+     *
+     * @param task Task to be marked
+     * @return String message of a successful marking
+     */
+    public static String unmarkMessage(Task task) {
+        return "Okay, I'll mark this as uncompleted\n" + task;
+    }
+
+    /**
+     * Prints message to be displayed after successfully marking a task as uncompleted
+     *
+     * @param task Task to be unmarked
+     * @return String message of a successful unmarking
+     */
+    public static String markMessage(Task task) {
+        return "Great! I'll mark this as done then.\n" + task;
     }
 }

@@ -1,12 +1,9 @@
-package TommyTalks;
+package tommyTalks;
 
-import Commands.Command;
-import Commands.HelperCommand;
-import Commands.InvalidCommand;
-import Commands.TaskCommand;
+import commands.*;
 
-import Exceptions.InvalidArgumentException;
-import Exceptions.InvalidFormatException;
+import exceptions.InvalidArgumentException;
+import exceptions.InvalidFormatException;
 
 public class App {
     public static final String LINE = "    ------------------------------------\n";
@@ -31,9 +28,18 @@ public class App {
         String type = keyword[0].toLowerCase();
 
         Command c = switch (type) {
-            case "list", "help", "mark", "unmark", "delete", "find", "sort",
-                    "priority", "exit", "bye" -> new HelperCommand(inst);
-            case "todo", "deadline", "event" -> new TaskCommand(inst);
+            case "list" -> new ListCommand(inst);
+            case "help" -> new HelpCommand(inst);
+            case "mark" -> new MarkCommand(inst);
+            case "unmark" -> new UnmarkCommand(inst);
+            case "delete" -> new DeleteCommand(inst);
+            case "find" -> new FindCommand(inst);
+            case "sort" -> new SortCommand(inst);
+            case "priority" -> new PriorityCommand(inst);
+            case "exit", "bye" -> new ExitCommand(inst);
+            case "todo" -> new ToDoCommand(inst);
+            case "deadline" -> new DeadlineCommand(inst);
+            case "event" -> new EventCommand(inst);
             default -> new InvalidCommand(inst);
         };
         return c;

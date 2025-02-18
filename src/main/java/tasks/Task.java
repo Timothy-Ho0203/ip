@@ -1,6 +1,6 @@
-package Tasks;
+package tasks;
 
-import Exceptions.InvalidArgumentException;
+import exceptions.InvalidArgumentException;
 
 /**
  * Parent class to handle functionalities of tasks.

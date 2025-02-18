@@ -1,4 +1,4 @@
-package TommyTalks;
+package tommyTalks;
 
 import java.io.IOException;
 

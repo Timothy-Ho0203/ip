@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * Runtime Exception when invalid argument is presented

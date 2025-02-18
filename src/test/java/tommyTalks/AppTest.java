@@ -1,12 +1,7 @@
-package TommyTalks;
+package tommyTalks;
 
-import Commands.TaskCommand;
-import Exceptions.InvalidFormatException;
-import Tasks.Deadline;
+import exceptions.InvalidFormatException;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

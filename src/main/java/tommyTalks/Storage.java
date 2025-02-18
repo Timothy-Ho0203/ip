@@ -1,4 +1,4 @@
-package TommyTalks;
+package tommyTalks;
 
 import java.io.File;
 import java.io.BufferedReader;
@@ -14,10 +14,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 /**
  * Saves and loads tasks from/to hard disk.
  * Stores the tasks in an ArrayList.
@@ -150,7 +150,7 @@ public class Storage {
     public String markAsDone(int i) {
         Task curr = tasks.get(i - 1);
         curr.markAsDone();
-        return "Great! I'll mark this as done then.\n";
+        return Ui.markMessage(curr);
     }
 
     /**
@@ -161,7 +161,7 @@ public class Storage {
     public String markAsUndone(int i) {
         Task curr = tasks.get(i - 1);
         curr.markAsUndone();
-        return "Okay, I'll mark this as uncompleted";
+        return Ui.unmarkMessage(curr);
     }
 
     /**

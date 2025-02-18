@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
-import TommyTalks.Storage;
-import TommyTalks.Ui;
+import tommyTalks.Storage;
+import tommyTalks.Ui;
 
 /**
  * Commands that deal with invalid user inputs that are neither

@@ -1,8 +1,8 @@
-package Commands;
+package commands;
 
-import Exceptions.InvalidFormatException;
-import TommyTalks.Storage;
-import TommyTalks.Ui;
+import exceptions.InvalidFormatException;
+import tommyTalks.Storage;
+import tommyTalks.Ui;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

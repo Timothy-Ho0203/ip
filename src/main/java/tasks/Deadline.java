@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +28,6 @@ public class Deadline extends Task {
     public String toString() {
         DateTimeFormatter formatDeadline = DateTimeFormatter.ofPattern("dd MM yyyy");
         String formattedDate = date.format(formatDeadline);
-        return "[D]" + super.toString() + "(by: " + formattedDate + ")";
+        return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 }

@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +32,6 @@ public class Event extends Task {
         DateTimeFormatter formatEvent = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm");
         String formattedStart = start.format(formatEvent);
         String formattedEnd = end.format(formatEvent);
-        return "[E]" + super.toString() + "(from: " + formattedStart + " to: " + formattedEnd + ")";
+        return "[E]" + super.toString() + " (from: " + formattedStart + " to: " + formattedEnd + ")";
     }
 }

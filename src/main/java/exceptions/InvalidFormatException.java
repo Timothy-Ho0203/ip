@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * Runtime Exception when arguments are presented in the wrong format
