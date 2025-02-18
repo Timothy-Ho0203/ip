@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("TommyTalks.TommyTalks")
+    mainClass.set("tommyTalks.TommyTalks")
 }
 
 shadowJar {
