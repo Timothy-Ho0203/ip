@@ -9,7 +9,7 @@ track of their completion status all in one place!
 ---
 
 ## Adding tasks
-tommyTalks supports 3 kinds of tasks:
+TommyTalks supports 3 kinds of tasks:
 
 - **ToDo**
 - **Deadline**
@@ -222,12 +222,12 @@ Bye, hope to see you again!
 ---
 ## Summary
 
-For a quick reference, tommyTalks supports 3 kinds of tasks:
+For a quick reference, TommyTalks supports 3 kinds of tasks:
 1. [ToDo](#todo)
 2. [Deadline](#deadline)
 3. [Event](#event)
 
-tommyTalks has the following commands you can call:
+TommyTalks has the following commands you can call:
 1. [List](#listing-all-tasks-list)
 2. [Mark](#mark-as-completed-mark)
 3. [Unmark](#unmark-a-task-unmark)
