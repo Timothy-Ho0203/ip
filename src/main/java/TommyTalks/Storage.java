@@ -150,7 +150,7 @@ public class Storage {
     public String markAsDone(int i) {
         Task curr = tasks.get(i - 1);
         curr.markAsDone();
-        return "Great! I'll mark this as done then.";
+        return "Great! I'll mark this as done then.\n";
     }
 
     /**
