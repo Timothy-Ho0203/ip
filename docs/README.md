@@ -2,7 +2,7 @@
 
 ![Screenshot of tommyTalks in action.](Ui.png)
 
-Ever wondered if there was an easier way to keep track of your tasks? :thinking:\
+Ever wondered if there was an easier way to keep track of your tasks?\
 Look no further, introducing **Tommy** - _your one-stop task manager_\
 **Add**, **delete** and **sort** your tasks according to their priorities, and keep
 track of their completion status all in one place!
@@ -238,5 +238,5 @@ TommyTalks has the following commands you can call:
 8. [Sort](#sort-the-tasks-sort)
 9. [Bye](#exiting-the-program-bye)
 
-This is Tommy's first time as a manager :grimacing:, so please be understanding and take good care of him!\
-I hope you enjoy your time with Tommy! :smile:
+This is Tommy's first time as a manager, so please be understanding and take good care of him!\
+I hope you enjoy your time with Tommy!

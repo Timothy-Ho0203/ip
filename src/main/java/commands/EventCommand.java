@@ -43,7 +43,9 @@ public class EventCommand extends Command {
             if (name.isBlank() || start.isBlank() || end.isBlank()) {
                 throw new InvalidArgumentException("Please don't leave any blanks");
             }
-
+            if (Character.isLetter(start.charAt(0)) || Character.isLetter(end.charAt(0))) {
+                throw new InvalidFormatException("Please use '/from' and '/to' for indicating date");
+            }
             DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm");
             LocalDateTime startDay = LocalDateTime.parse(start.trim(), format);
             LocalDateTime endDay = LocalDateTime.parse(end.trim(), format);

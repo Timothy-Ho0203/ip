@@ -1,12 +1,27 @@
 package tommyTalks;
 
-import commands.*;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.ExitCommand;
+import commands.FindCommand;
+import commands.HelpCommand;
+import commands.InvalidCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.PriorityCommand;
+import commands.SortCommand;
+import commands.ToDoCommand;
+import commands.UnmarkCommand;
 
 import exceptions.InvalidArgumentException;
 import exceptions.InvalidFormatException;
 
+/**
+ * Main controller of parsing and generating inputs
+ */
 public class App {
-    public static final String LINE = "    ------------------------------------\n";
     private Storage data;
     private Ui ui;
     private boolean isExit = false;

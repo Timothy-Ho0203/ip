@@ -44,7 +44,9 @@ public class DeadlineCommand extends Command {
             if (name.isBlank() || date.isBlank()) {
                 throw new InvalidArgumentException("Please don't leave any blanks");
             }
-
+            if (Character.isLetter(date.charAt(0))) {
+                throw new InvalidFormatException("Please use '/by' for indicating date");
+            }
             DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM yyyy");
             LocalDate dueDate = LocalDate.parse(date.trim(), format);
             curr = new Deadline(name.trim(), dueDate);

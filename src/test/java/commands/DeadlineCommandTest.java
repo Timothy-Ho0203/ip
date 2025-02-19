@@ -1,18 +1,19 @@
 package commands;
 
 import exceptions.InvalidFormatException;
+import org.junit.jupiter.api.Test;
 import tommyTalks.Storage;
 import tommyTalks.Ui;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class InvalidCommandTest {
+public class DeadlineCommandTest {
     @Test
     public void execute_invalidInput_exceptionThrown() {
         Storage data = new Storage("./ip/data/TommyTalks.txt");
         Ui ui = new Ui();
         InvalidFormatException thrown = assertThrows(InvalidFormatException.class, () -> {
-            new InvalidCommand("markkk").execute(data, ui);
+            new DeadlineCommand("deadline test /until 02 02 2020").execute(data, ui);
         });
     }
 }
